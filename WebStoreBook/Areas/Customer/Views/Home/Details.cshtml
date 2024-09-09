@@ -1,0 +1,85 @@
+﻿@model ShoppingCart
+
+<form method="post">
+    <div class="container d-flex justify-content-center align-items-center mt-3">
+        <div class="col-lg-8 border p-3 main-section bg-white">
+            <div class="row hedding m-0 pl-3 pt-0 pb-3 text-center">
+                <h1>@Model.Product.Title</h1>
+            </div>
+            <div class="row m-0">
+                <div class="col-lg-4 left-side-product-box pb-3 align-content-center">
+                    <img src="~/@Model.Product.ImageUrl" alt="Product Image" class="border p-3 w-100" />
+                </div>
+                <div class="col-lg-8">
+                    <div class="right-side-pro-detail border p-3 m-0">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <span>@Model.Product.Author</span>
+                            </div>
+                            <div class="col-lg-12">
+                                <span>ISBN : ISBN</span>
+                            </div>
+                            <div class="col-lg-12">
+                            </div>
+                            <div class="col-lg-12">
+                                <span>List Price : $@Model.Product.ListPrice</span>
+                            </div>
+                            <div class="row text-center">
+                                <div class="p-1 col-3 bg-secondary border-bottom">
+                                    <div>Quantity</div>
+                                </div>
+                                <div class="p-1 col-3 bg-secondary border-bottom">
+                                    <div>1-50</div>
+                                </div>
+                                <div class="p-1 col-3 bg-secondary border-bottom">
+                                    <div>51-100</div>
+                                </div>
+                                <div class="p-1 col-3 bg-secondary border-bottom">
+                                    <div>100+</div>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="p-1 col-3 bg-secondary ">
+                                    <div>Price</div>
+                                </div>
+                                <div class="p-1 col-3 bg-secondary">
+                                    <div>@Model.Product.Price50</div>
+                                </div>
+                                <div class="p-1 col-3 bg-secondary ">
+                                    <div>@Model.Product.Price100</div>
+                                </div>
+                                <div class="p-1 col-3 bg-secondary">
+                                    <div>$$</div>
+                                </div>
+                            </div>
+                            <hr class="p-0 m-0">
+
+                            <div class="col-lg-12 pt-2">
+                                <h5>Product Detail</h5>
+                                <span>
+                                    @Model.Product.Description
+                                </span>
+                                <hr class="m-0 pt-2 mt-2">
+                            </div>
+                            <div class="col-lg-12">
+                                <h5>Count :</h5>
+                                <input asp-for="Count" class="form-control text-center w-100" value="1" />
+                            </div>
+                            <div class="col-lg-12 mt-3">
+                                <div class="row">
+                                    <div class="col-lg-6 pb-2">
+                                        <a href="#" class="btn btn-danger w-100">Add To Cart</a>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <a asp-action="Index" class="btn btn-success w-100">Back to list</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
