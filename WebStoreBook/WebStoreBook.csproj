@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.33" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.33" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.33" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.33" />
@@ -21,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BanSach.DataAcess\WebStoreBook.DataAcess.csproj" />
     <ProjectReference Include="..\BanSach.Model\WebStoreBook.Models.csproj" />
+    <ProjectReference Include="..\WebStoreBook.Utility\WebStoreBook.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
