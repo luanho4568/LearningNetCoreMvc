@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 using WebStoreBook.DataAcess.Repository.IRepository;
 using WebStoreBook.Models;
 
@@ -22,14 +24,41 @@ namespace WebStoreBook.Controllers
             IEnumerable<Product> products = _unitOfWork.Product.GetAll(includeProperties: "Category,CoverType");
             return View(products);
         }
-        public IActionResult Details(int? id)
+        public IActionResult Details(int id)
         {
+            var product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id, includeProperties: "Category,CoverType");
             ShoppingCart cartObj = new()
             {
-                Product = _unitOfWork.Product.GetFirstOrDefault(x => x.Id == id, includeProperties: "Category,CoverType"),
-                Count = 1
+                Product = product,
+                Count = 1,
+                ProductId = id
             };
             return View(cartObj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public IActionResult Details(ShoppingCart shoppingCart)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            shoppingCart.ApplicationUserId = claim.Value;
+
+            ShoppingCart carObj = _unitOfWork.ShoppingCart.GetFirstOrDefault(
+                    x => x.ApplicationUserId == claim.Value && x.ProductId == shoppingCart.ProductId
+                );
+            if (carObj == null)
+            {
+                _unitOfWork.ShoppingCart.Add(shoppingCart);
+            }
+            else
+            {
+                _unitOfWork.ShoppingCart.IncrementCount(carObj, shoppingCart.Count);
+            }
+            _unitOfWork.Save();
+
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult Privacy()
         {
