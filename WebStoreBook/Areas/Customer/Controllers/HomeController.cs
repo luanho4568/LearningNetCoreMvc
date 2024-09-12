@@ -45,6 +45,8 @@ namespace WebStoreBook.Controllers
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             shoppingCart.ApplicationUserId = claim.Value;
 
+            shoppingCart.Id = 0;
+
             ShoppingCart carObj = _unitOfWork.ShoppingCart.GetFirstOrDefault(
                     x => x.ApplicationUserId == claim.Value && x.ProductId == shoppingCart.ProductId
                 );
