@@ -1,57 +1,66 @@
 ﻿@model WebStoreBook.Models.ViewModel.ShoppingCartVM
 
-<form method="post">
-    <section class="shopping-cart dark">
-        <div class="container">
-            <div class="block-heading">
-                <h2>Shopping Cart</h2>
-            </div>
-            <div class="content">
-                <div class="row">
-                    <div class="col-md-12 col-lg-8">
-                        <div class="items">
-                            @foreach (var item in Model.ListCart)
-                            {
+<section class="shopping-cart dark">
+    <div class="container">
+        <div class="block-heading">
+            <h2>Shopping Cart</h2>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12 col-lg-8">
+                    <div class="items">
+                        @foreach (var item in Model.ListCart)
+                        {
 
-                                <div class="product">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <img class="img-fluid mx-auto d-block image w-80" src="~/@item.Product.ImageUrl ">
-                                        </div>
-                                        <div class="col-md-8 align-content-center">
-                                            <div class="info">
-                                                <div class="row">
-                                                    <div class="col-md-5 product-name">
-                                                        <div class="product-name d-flex flex-column ">
-                                                            <span href="#">@item.Product.Title</span>
-                                                        </div>
+                            <div class="product">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img class="img-fluid mx-auto d-block image w-80" src="~/@item.Product.ImageUrl ">
+                                    </div>
+                                    <div class="col-md-8 align-content-center">
+                                        <div class="info">
+                                            <div class="row">
+                                                <div class="col-md-4 product-name">
+                                                    <div class="product-name d-flex flex-column ">
+                                                        <span href="#">@item.Product.Title</span>
                                                     </div>
-                                                    <div class="col-md-2 quantity">
-                                                        <label for="quantity">x<span>@item.Count</span></label>
-                                                    </div>
-                                                    <div class="col-md-5 quantity">
-                                                        <span>@item.Price.ToString("C")</span>
-                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 quantity">
+                                                    <a asp-action="minus" asp-route-cartId="@item.Id" class="text-decoration-none">
+                                                        <i class="bi bi-dash"></i>
+                                                    </a>
+                                                    <span>@item.Count</span>
+                                                    <a asp-action="plus" asp-route-cartId="@item.Id" class="text-decoration-none">
+                                                        <i class="bi bi-plus"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-4 quantity">
+                                                    <span>@item.Price.ToString("C")</span>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a asp-action="remove" asp-route-cartId="@item.Id" class="text-danger">
+                                                        <i class="bi bi-trash"></i>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            }
-                        </div>
-                    </div>
-                    <div class="col-md-12 col-lg-4">
-                        <div class="summary d-flex flex-column justify-content-around">
-                            <h3>Summary</h3>
-                            <div class="summary-item"><span class="text">Total</span><span class="price">@Model.CartTotal.ToString("C")</span></div>
-                            <div class="d-flex justify-content-around">
-                                <a type="button" asp-controller="Home" asp-area="Customer" asp-action="Index" class="btn btn-primary" style="margin-top: 20px">Back</a>
-                                <button type="submit" class="btn btn-primary">Checkout </button>
                             </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-4">
+                    <div class="summary d-flex flex-column justify-content-around">
+                        <h3>Summary</h3>
+                        <div class="summary-item"><span class="text">Total</span><span class="price">@Model.OrderHeader.OrderTotal.ToString("C")</span></div>
+                        <div class="d-flex justify-content-around">
+                            <a asp-controller="Home" asp-area="Customer" asp-action="Index" class="btn btn-primary" style="margin-top: 20px">Back</a>
+                            <a asp-area="Customer" asp-controller="Cart" asp-action="Summary" class="btn btn-primary" style="margin-top: 20px">Summary</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-</form>
+    </div>
+</section>

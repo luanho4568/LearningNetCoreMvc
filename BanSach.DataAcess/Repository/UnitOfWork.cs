@@ -15,6 +15,10 @@ namespace WebStoreBook.DataAcess.Repository
         public IShoppingCartRepository ShoppingCart { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
 
+        public IOrderDetailRepository OrderDetail { get; private set; }
+
+        public IOrderHeaderRepository OrderHeader { get; private set; }
+
         private readonly ApplicationDbContext _db;
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -25,6 +29,8 @@ namespace WebStoreBook.DataAcess.Repository
             Company = new CompanyRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
             ShoppingCart = new ShoppingCartRepository(_db);
+            OrderDetail = new OrderDetailRepository(_db);
+            OrderHeader = new OrderHeaderRepository(_db);
         }
 
         public void Save()
